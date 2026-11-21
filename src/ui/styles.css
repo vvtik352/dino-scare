@@ -1,0 +1,51 @@
+* { box-sizing: border-box; }
+html, body { margin: 0; height: 100%; overflow: hidden; background: #000; color: #ddd;
+  font-family: ui-monospace, Menlo, Consolas, monospace; }
+#app, #app canvas { display: block; width: 100%; height: 100%; }
+.hidden { display: none !important; }
+
+/* ---------- Меню ---------- */
+.menu { position: fixed; inset: 0; display: flex; align-items: center; justify-content: center;
+  background: radial-gradient(ellipse at center, rgba(10, 10, 16, 0.75), rgba(0, 0, 0, 0.92));
+  z-index: 10; user-select: none; }
+.menu--dead { background: radial-gradient(ellipse at center, rgba(60, 0, 0, 0.7), rgba(0, 0, 0, 0.95)); }
+.menu__box { width: min(560px, 92vw); text-align: center; }
+.menu h1 { margin: 0 0 8px; letter-spacing: 0.3em; color: #c33; font-size: 44px; font-weight: 700; }
+.menu__subtitle { margin: 0 0 22px; opacity: 0.8; white-space: pre-line; min-height: 1.2em; }
+.menu__buttons { display: flex; gap: 12px; justify-content: center; margin-bottom: 22px; }
+.menu button { font: inherit; color: #eee; background: #2a1414; border: 1px solid #733;
+  padding: 10px 22px; cursor: pointer; letter-spacing: 0.1em; }
+.menu button:hover:not(:disabled) { background: #4a1c1c; }
+.menu button:disabled { opacity: 0.4; cursor: wait; }
+.menu__buttons button { font-size: 18px; padding: 12px 34px; }
+.menu__row { display: flex; align-items: center; gap: 10px; margin: 8px 0; text-align: left; }
+.menu__row label { flex: 1; font-size: 13px; opacity: 0.9; }
+.menu__row input[type="text"] { font: inherit; background: #111; color: #eee; border: 1px solid #444;
+  padding: 6px 8px; width: 160px; }
+.menu__row input[type="range"] { width: 180px; accent-color: #c33; }
+.menu__row select { font: inherit; background: #111; color: #eee; border: 1px solid #444; padding: 4px; }
+.menu__row button { padding: 6px 12px; }
+.menu__value { width: 40px; font-size: 12px; opacity: 0.7; text-align: right; }
+.menu__settings { border-top: 1px solid #333; padding-top: 10px; margin-top: 10px; }
+.menu__controls { margin-top: 18px; font-size: 12px; opacity: 0.6; white-space: pre-line; line-height: 1.6; }
+
+/* ---------- HUD ---------- */
+.hud { position: fixed; inset: 0; pointer-events: none; z-index: 5; }
+.hud__vignette { position: absolute; inset: 0; opacity: 0;
+  background: radial-gradient(ellipse at center, transparent 45%, rgba(110, 0, 0, 0.9) 100%); }
+.hud__crosshair { position: absolute; left: 50%; top: 50%; width: 4px; height: 4px; margin: -2px 0 0 -2px;
+  background: rgba(255, 255, 255, 0.55); border-radius: 50%; }
+.hud__prompt { position: absolute; left: 50%; top: 58%; transform: translateX(-50%); font-size: 14px;
+  color: #eee; text-shadow: 0 0 4px #000; transition: opacity 0.15s; }
+.hud__noise { position: absolute; left: 24px; bottom: 24px; width: 180px; }
+.hud__noise-label { font-size: 11px; letter-spacing: 0.25em; opacity: 0.6; margin-bottom: 4px; }
+.hud__noise-bar { height: 6px; background: rgba(255, 255, 255, 0.12); }
+.hud__noise-fill { height: 100%; width: 0; transition: width 0.08s linear, background 0.2s; }
+.hud__stance { position: absolute; left: 24px; bottom: 44px; font-size: 11px; opacity: 0.6; letter-spacing: 0.15em; }
+
+/* ---------- Отладка ---------- */
+.debug-panel { position: fixed; top: 8px; left: 8px; padding: 8px 10px; font-size: 12px; line-height: 1.45;
+  background: rgba(0, 0, 0, 0.65); border: 1px solid #333; pointer-events: none; white-space: pre; z-index: 20; }
+.debug-panel .on { color: #7f7; }
+.debug-panel .off { color: #888; }
+.debug-hint { position: fixed; bottom: 6px; right: 8px; font-size: 11px; opacity: 0.35; pointer-events: none; z-index: 20; }
